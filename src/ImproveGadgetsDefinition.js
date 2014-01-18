@@ -11,13 +11,14 @@
 function improveGadgetsDefinition(){
 	var $gadgets = $( '#mw-content-text' ).find( 'li' ),
 		linker = function( match, page ){
-			return '|<a href="' + mw.util.getUrl( 'MediaWiki:Gadget-' + page ) + '">' + page + '</a>';
+			var pg = 'MediaWiki:Gadget-' + page;
+			return '|<a href="' + mw.util.getUrl( pg ) + '" title="' + pg + '">' + page + '</a>';
 		};
 	$gadgets.each( function(){
 		var $this = $(this),
 			text = $this.text(),
-			reJsCss = /\.(?:js|css)$/;
-		if ( ! reJsCss.test( text ) ){
+			reDefinition = /^ *([a-zA-Z](?:[-_:.\w\d ]*[a-zA-Z0-9])?)(\s*\[.*?\])?\s*((\|[^|]*)+)\s*$/;
+		if ( ! reDefinition.test( text ) ){
 			return true;
 		}
 		$this.html( text.replace( /\|([^|]+?\.(?:js|css)(?=\||$))/g, linker ) );
