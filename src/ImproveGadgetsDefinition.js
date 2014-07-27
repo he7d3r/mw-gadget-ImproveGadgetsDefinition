@@ -8,8 +8,8 @@
 ( function ( mw, $ ) {
 'use strict';
 
-function improveGadgetsDefinition(){
-	var $gadgets = $( '#mw-content-text' ).find( 'li' ),
+function improveGadgetsDefinition( $content ){
+	var $gadgets = $content.find( 'li' ),
 		linker = function( match, page ){
 			var pg = 'MediaWiki:Gadget-' + page;
 			return '|<a href="' + mw.util.getUrl( pg ) + '" title="' + pg + '">' + page + '</a>';
@@ -27,7 +27,7 @@ function improveGadgetsDefinition(){
 
 if( mw.config.get( 'wgNamespaceNumber' ) === 8 && mw.config.get( 'wgTitle' ) === 'Gadgets-definition' ){
 	mw.loader.using( 'mediawiki.util', function(){
-		$( improveGadgetsDefinition );
+		mw.hook( 'wikipage.content' ).add( improveGadgetsDefinition );
 	} );
 }
 
