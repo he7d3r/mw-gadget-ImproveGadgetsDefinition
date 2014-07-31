@@ -11,13 +11,13 @@
 function improveGadgetsDefinition( $content ){
 	var $gadgets = $content.find( 'li' ),
 		linker = function( match, page ){
-			var pg = 'MediaWiki:Gadget-' + page;
+			var pg = 'MediaWiki:Gadget-' + $.trim( page );
 			return '|<a href="' + mw.util.getUrl( pg ) + '" title="' + pg + '">' + page + '</a>';
 		};
 	$gadgets.each( function(){
 		var $this = $(this),
 			text = $this.text(),
-			reDefinition = /^ *([a-zA-Z](?:[-_:.\w\d ]*[a-zA-Z0-9])?)(\s*\[.*?\])?\s*((\|[^|]*)+)\s*$/;
+			reDefinition = /^\s*([a-zA-Z](?:[-_:.\w\d ]*[a-zA-Z0-9])?)(\s*\[.*?\])?\s*((\|[^|]*)+)\s*$/;
 		if ( ! reDefinition.test( text ) ){
 			return true;
 		}
